@@ -1,0 +1,132 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameDirector : MonoBehaviour
+{
+    public static int HP;
+    public static int MP;
+    public static int ATK;
+    public static int DEF;
+    public static int SPD;
+    public static int EXP=0;
+    public static int Gold =100;
+
+    public GameObject Level;//レベルアップ演出
+
+    //処理を一度だけ行うためのもの
+    public static bool LV2 = true;
+    public static bool LV3 = true;
+    public static bool LV4 = true;
+    public static bool LV5 = true;
+    public static bool LV6 = true;
+    public static bool LV7 = true;
+    public static bool LV8 = true;
+    public static bool LV9 = true;
+    public static bool LV10 = true;
+
+    // Update is called once per frame
+    void Update()
+    {
+        HP = Status.HP * 10 + 50;
+        MP = Status.MP * 5 + 20;
+        SPD = Status.SPD + 1;
+        ATK = Status.ATK * 2 + Equipment.Sword;
+        DEF = Status.DEF * 2 + Equipment.Armor;
+
+        if (EXP>=30&&LV2==true)
+        {
+            //森に出てくるモンスターのレベルがアップ
+            MonsterPackage_Forest.LV = 2;
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV2 = false;
+        }
+
+        if (EXP >= 80&&LV3==true)
+        {
+            //森に出てくるモンスターのレベルがアップ
+            MonsterPackage_Forest.LV = 3;
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV3 = false;
+        }
+
+        if (EXP >= 180&&LV4==true)
+        {
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV4 = false;
+        }
+
+        if (EXP >= 340&&LV5==true)
+        {
+            //森に出てくるモンスターのレベルがアップ
+            MonsterPackage_Forest.LV = 4;
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV5 = false;
+        }
+
+        if (EXP >= 610&&LV6==true)
+        {
+            //洞窟に出てくるモンスターのレベルがアップ
+            MonsterPackage_Doukutu.LV = 2;
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV6 = false;
+        }
+
+        if (EXP >= 1010&&LV7==true)
+        {
+            //森に出てくるモンスターのレベルがアップ
+            MonsterPackage_Forest.LV = 5;
+            //洞窟に出てくるモンスターのレベルがアップ
+            MonsterPackage_Doukutu.LV = 3;
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV7 = false;
+        }
+
+        if (EXP >= 1860&&LV8==true)
+        {
+            //洞窟に出てくるモンスターのレベルがアップ
+            MonsterPackage_Doukutu.LV = 4;
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV8 = false;
+        }
+
+        if (EXP >= 3360&&LV9==true)
+        {
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV9 = false;
+        }
+
+        if (EXP >= 5860&&LV10==true)
+        {
+            //レベルアップ演出
+            Level.SetActive(true);
+            GetComponent<AudioSource>().Play();
+            //一度だけ行う
+            LV10 = false;
+        }
+    }
+}
