@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MonsterPackage_Doukutu : MonoBehaviour
+{
+    public static int LV = 1;//出現するモンスターをレベルで調整
+    int number;//出現するモンスターを制御する値
+    //洞窟で出現するモンスター
+    public GameObject Slime_Red;
+    public GameObject Slime_Black;
+    public GameObject Soldier;
+    public GameObject Mermaid;
+    public GameObject Witch;
+    public GameObject RedLizardman;
+    
+    void Start()
+    {
+        switch(LV)//確率でモンスター出現
+        {
+            case 1:
+                number = Random.Range(0, 3);
+                break;
+            case 2://Lv6
+                number = Random.Range(1, 4);
+                break;
+            case 3://Lv7
+                number = Random.Range(2, 5);
+                break;
+            case 4://Lv8
+                number = Random.Range(2, 6);
+                break;
+        }
+
+        switch (number)
+        {
+            case 0:
+                Slime_Red.SetActive(true);//レッドスライムが出現
+                break;
+            case 1:
+                Slime_Black.SetActive(true);//ブラックスライムが出現
+                break;
+            case 2:
+                Soldier.SetActive(true);//ソルジャーが出現
+                break;
+            case 3:
+                Mermaid.SetActive(true);//マーメイドが出現
+                break;
+            case 4:
+                Witch.SetActive(true);//ウィッチが出現
+                break;
+            case 5:
+                RedLizardman.SetActive(true);//レッドリザードマンが出現
+                break;
+        }
+    }
+}
