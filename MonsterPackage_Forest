@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MonsterPackage_Forest : MonoBehaviour
+{
+    public static int LV = 1;//出現するモンスターをレベルで調整
+    int number;//出現するモンスターを制御する値
+    //森で出現するモンスター
+    public GameObject Slime_Blue;
+    public GameObject Slime_Green;
+    public GameObject Pumpkin;
+    public GameObject Soldier;
+    public GameObject Dinosaur;
+    public GameObject Lizardman;
+    
+    void Start()
+    {
+        switch(LV)
+        {
+            case 1:
+                number = Random.Range(0, 2);
+                break;
+            case 2://Lv2のとき
+                number = Random.Range(0, 3);
+                break;
+            case 3://Lv3のとき
+                number = Random.Range(0, 4);
+                break;
+            case 4://Lv5のとき
+                number = Random.Range(2, 5);
+                break;
+            case 5://Lv7のとき
+                number = Random.Range(3, 6);
+                break;
+        }
+
+        switch (number)
+        {
+            case 0:
+                Slime_Blue.SetActive(true);//スライムが出現
+                break;
+            case 1:
+                Slime_Green.SetActive(true);//グリーンスライムが出現
+                break;
+            case 2:
+                Pumpkin.SetActive(true);//パンプキンが出現
+                break;
+            case 3:
+                Soldier.SetActive(true);//ソルジャーが出現
+                break;
+            case 4:
+                Dinosaur.SetActive(true);//ダイナソーが出現
+                break;
+            case 5:
+                Lizardman.SetActive(true);//リザードマンが出現
+                break;
+        }
+    }
+}
