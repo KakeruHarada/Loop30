@@ -1,0 +1,107 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Monster : MonoBehaviour
+{
+    public GameObject BlowAway;//吹き飛ぶオブジェクト
+    public GameObject Impact;//エフェクト
+
+    Rigidbody2D rigid2D;
+    float Advance = -500f;//移動する早さ
+    public int HPm; //HP
+    public int ATKm;//攻撃力
+    public int DEFm;//防御力
+    public int EXPm;//経験値
+    public int GOLDm;//お金
+    bool Once = true;//一度だけ行う処理
+    // Start is called before the first frame update
+    void Start()
+    {
+        this.rigid2D = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        rigid2D.AddForce(transform.right * Advance * Time.deltaTime);
+
+        if (HPm <= 0)//HPが0になった場合
+        {
+            if (Once == true)
+            {
+                monster_des.SE = true;
+                GameDirector.EXP += EXPm;//経験値
+                GameDirector.Gold += GOLDm;//お金
+                Once = false;
+            }
+
+            BlowAway.SetActive(true);//
+            this.gameObject.transform.parent = BlowAway.gameObject.transform;//吹き飛ぶオブジェクトの子オブジェクトになる
+            rigid2D.isKinematic = true;
+            transform.Rotate(new Vector3(0, 0, 30));//回転しながら吹き飛ぶ
+            Invoke("DestroyMethod", 1f);
+        }
+
+    }
+
+    void OnTriggerEnter2D(Collider2D Collider)
+    {
+        if (Collider.gameObject.tag == "des")//倒した時以外でバトルが終了したときモンスターを消す
+        {
+            gameObject.SetActive(false);
+        }
+
+        if (Collider.gameObject.tag == "magic")//プレイヤーの魔法攻撃に触れたとき
+        {
+            if (GameDirector.ATK / 2 > DEFm)//プレイヤーの魔法攻撃がモンスターの防御力を上回る場合
+            {
+                HPm -= GameDirector.ATK / 2 - DEFm;
+            }
+            else if (GameDirector.ATK / 2 <= DEFm)//プレイヤーの魔法攻撃がモンスターの防御力を下回る場合
+            {
+                HPm -= 1;
+            }
+        }
+
+        if (Collider.gameObject.tag == "Player")
+        {
+            rigid2D.velocity = Vector3.zero;
+
+            transform.Translate(0.5f, 0, 0);
+
+            if (GameDirector.ATK > DEFm)//プレイヤーの攻撃力がモンスターの防御力を上回る場合
+            {
+                HPm -= GameDirector.ATK - DEFm;
+            }
+            else if (GameDirector.ATK <= DEFm)//プレイヤーの攻撃力がモンスターの防御力を下回る場合
+            {
+                HPm -= 1;
+            }
+
+            if (ATKm > GameDirector.DEF)//モンスターの攻撃力がプレイヤーの防御力を上回る場合
+            {
+                HP.HPs -= ATKm - GameDirector.DEF;
+            }
+            else if (ATKm <= GameDirector.DEF)//モンスターの攻撃力がプレイヤーの防御力を下回る場合
+            {
+                HP.HPs -= 1;
+            }
+
+            if (HPm > 0)
+            {
+                Impact.SetActive(true);
+                Invoke("ImpactDestroyMethod", 0.2f);
+            }
+        }
+    }
+    void ImpactDestroyMethod()
+    {
+        Impact.SetActive(false);
+    }
+
+    void DestroyMethod()
+    {
+        gameObject.SetActive(false);
+    }
+}
