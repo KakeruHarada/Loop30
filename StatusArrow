@@ -1,0 +1,150 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StatusArrow : MonoBehaviour
+{
+    int y = 0;
+
+    public GameObject MenuArrow;
+    public GameObject StatusMenu;
+
+    // Update is called once per frame
+    void Update()
+    {
+        //上下移動
+        if (Input.GetKeyDown(KeyCode.S) && y < 5)
+        {
+            y += 1;
+            transform.Translate(0, -130, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.W) && 0 < y)
+        {
+            y += -1;
+            transform.Translate(0, 130, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow) && y < 5)
+        {
+            y += 1;
+            transform.Translate(0, -130, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && 0 < y)
+        {
+            y += -1;
+            transform.Translate(0, 130, 0);
+        }
+
+
+        //ステータス振り
+        if(Input.GetKey(KeyCode.LeftArrow) &&Status.HP!=0&&y==0)
+        {
+            Status.HP -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) && Status.MP!= 0 && y == 1)
+        {
+            Status.MP -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) && Status.ATK != 0 && y == 2)
+        {
+            Status.ATK -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) && Status.DEF!= 0 && y == 3)
+        {
+            Status.DEF -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) && Status.SPD != 0 && y == 4)
+        {
+            Status.SPD -= 1;
+            Status.Point += 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Status.Point != 0 && y == 0)
+        {
+            Status.HP += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Status.Point != 0 && y == 1)
+        {
+            Status.MP += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Status.Point != 0 && y == 2)
+        {
+            Status.ATK += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Status.Point != 0 && y == 3)
+        {
+            Status.DEF += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Status.Point != 0 && y == 4 && Status.SPD < 10)
+        {
+            Status.SPD += 1;
+            Status.Point -= 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.A) && Status.HP != 0 && y == 0)
+        {
+            Status.HP -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.A) && Status.MP != 0 && y == 1)
+        {
+            Status.MP -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.A) && Status.ATK != 0 && y == 2)
+        {
+            Status.ATK -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.A) && Status.DEF != 0 && y == 3)
+        {
+            Status.DEF -= 1;
+            Status.Point += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.A) && Status.SPD != 0 && y == 4)
+        {
+            Status.SPD -= 1;
+            Status.Point += 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) && Status.Point != 0 && y == 0)
+        {
+            Status.HP += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.D) && Status.Point != 0 && y == 1)
+        {
+            Status.MP += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.D) && Status.Point != 0 && y == 2)
+        {
+            Status.ATK += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.D) && Status.Point != 0 && y == 3)
+        {
+            Status.DEF += 1;
+            Status.Point -= 1;
+        }
+        if (Input.GetKeyDown(KeyCode.D) && Status.Point != 0 && y == 4&&Status.SPD<10)
+        {
+            Status.SPD += 1;
+            Status.Point -= 1;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Return)&&y==5)
+        {
+            //メニュー画面に戻り、ステータス画面が消える
+            MenuArrow.SetActive(true);
+            StatusMenu.SetActive(false);
+        }
+    }
+}
