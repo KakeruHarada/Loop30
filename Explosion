@@ -1,0 +1,151 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Explosion : MonoBehaviour
+{
+    public GameObject Twenty;
+    public GameObject Thirty;
+    public GameObject Forty;
+    public GameObject Fifty;
+    public GameObject Sixty;
+    public GameObject Ex1;//sprite
+    public GameObject Ex2;
+    public GameObject Ex3;
+    public GameObject Ex4;
+    public GameObject Ex5;
+    public GameObject Collider1;//判定
+    public GameObject Collider2;
+    public GameObject Collider3;
+    public GameObject Collider4;
+    public GameObject Collider5;
+    bool Once = true;//一度だけ行うための処理
+    public static bool Invocation = false;//発動できるかどうか
+    public AudioClip ExplodeSE;
+    AudioSource Audio;
+    // Start is called before the first frame update
+    void Start()
+    {
+        this.Audio = GetComponent<AudioSource>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+        if (20 <= downfifty.Age && downfifty.Age < 30)
+        {
+            transform.position = Twenty.transform.position;
+        }
+        if (30 <= downfifty.Age && downfifty.Age < 40)
+        {
+            transform.position = Thirty.transform.position;
+
+        }
+        if (40 <= downfifty.Age && downfifty.Age < 50)
+        {
+            transform.position = Forty.transform.position;
+
+        }
+        if (50 <= downfifty.Age && downfifty.Age < 60)
+        {
+            transform.position = Fifty.transform.position;
+            
+        }
+        if (60 <= downfifty.Age && downfifty.Age < 70)
+        {
+            transform.position = Sixty.transform.position;
+        }
+
+        if (Status.MP < 4)
+        {
+            Invocation = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z)&& Once == true && Player_Battle.BattleEncount==true&& MP.MPs>=10&& Invocation == true)
+        {
+            MP.MPs -= 10;
+
+            Ex1.SetActive(true);
+
+            //スプライトを表示➡爆発の当たり判定を付ける
+            //を繰り返す
+            Invoke("Collider1Method", 0.36f);
+
+            Invoke("Ex2Method", 0.04f);
+
+            Invoke("Collider2Method", 0.4f);
+
+            Invoke("Ex3Method", 0.08f);
+
+            Invoke("Collider3Method", 0.44f);
+
+            Invoke("Ex4Method", 0.12f);
+
+            Invoke("Collider4Method", 0.48f);
+
+            Invoke("Ex5Method", 0.16f);
+
+            Invoke("Collider5Method", 0.52f);
+
+            Invoke("DestroyMethod", 0.88f);
+
+            Once = false;
+        }
+    }
+
+    void Collider1Method()
+    {
+        Collider1.SetActive(true);
+        this.Audio.PlayOneShot(this.ExplodeSE);
+    }
+    void Ex2Method()
+    {
+        Ex2.SetActive(true);
+    }
+
+    void Collider2Method()
+    {
+        Collider2.SetActive(true);
+    }
+
+    void Ex3Method()
+    {
+        Ex3.SetActive(true);
+    }
+
+    void Collider3Method()
+    {
+        Collider3.SetActive(true);
+        this.Audio.PlayOneShot(this.ExplodeSE);
+    }
+    void Ex4Method()
+    {
+        Ex4.SetActive(true);
+    }
+
+    void Collider4Method()
+    {
+        Collider4.SetActive(true);
+    }
+    void Ex5Method()
+    {
+        Ex5.SetActive(true);
+    }
+
+    void Collider5Method()
+    {
+        Collider5.SetActive(true);
+        this.Audio.PlayOneShot(this.ExplodeSE);
+    }
+
+    void DestroyMethod()
+    {
+        Ex1.SetActive(false);
+        Ex2.SetActive(false);
+        Ex3.SetActive(false);
+        Ex4.SetActive(false);
+        Ex5.SetActive(false);
+        Once = true;
+    }
+}
